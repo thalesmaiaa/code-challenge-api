@@ -24,9 +24,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-
-
-
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -86,21 +83,11 @@ class UserServiceTest {
     @DisplayName("Should create a user with invalid departmentId")
     @Test
     void testCreateInvalidUser() {
-        UUID departmentId = UUID.randomUUID();
-
-        User user = new User(
-                UUID.randomUUID(),
-                "test",
-                "email@email.com",
-                Timestamp.valueOf(LocalDateTime.now()),
-                null,
-                departmentId
-        );
 
         assertThrows(IllegalArgumentException.class,
                 () -> departmentService.findByName(DepartmentsType.valueOf("ABC")));
 
-    }
+        }
 
     @DisplayName("Search for invalid users")
     @Test
@@ -113,5 +100,5 @@ class UserServiceTest {
         assertThrows(NotFoundException.class, () -> userService.deleteUser(userId));
 
     }
-    
+
 }

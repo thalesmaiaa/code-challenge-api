@@ -65,3 +65,5 @@ Transfer-Encoding: chunked
     "departmentId": HR or FINANCE or IT | MARKETING,
 }
 ```
+
+OBS: Lembrar de alterar o arquivo application.properties com as configurações do seu banco de dados PostgreSQL.
