@@ -1,4 +1,4 @@
-package org.example.codechallenge.services;
+package org.example.codechallenge.services.user;
 
 
 import org.example.codechallenge.exceptions.NotFoundException;
@@ -53,8 +53,8 @@ public class UserService {
                 userDTO.departmentId()
         );
 
-        userRepository.save(user);
-        return userDTOMapper.apply(user);
+        User createdUser = userRepository.save(user);
+        return userDTOMapper.apply(createdUser);
     }
 
     public UserDTO updateUser(UUID id, UserDTO userDTO) {
