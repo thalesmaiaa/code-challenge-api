@@ -1,6 +1,8 @@
 package org.example.codechallenge.services.user;
 
 import org.example.codechallenge.exceptions.NotFoundException;
+import org.example.codechallenge.models.department.Department;
+import org.example.codechallenge.models.department.DepartmentsType;
 import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.repositories.UserRepository;
@@ -58,10 +60,15 @@ class UserServiceTest {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getDepartmentId()
+                DepartmentsType.HR
         );
 
-        when(departmentService.departmentExists(departmentId)).thenReturn(true);
+        Department department = new Department(
+                departmentId,
+                "HR"
+        );
+
+        when(departmentService.findByName(DepartmentsType.HR)).thenReturn(department);
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(userDTOMapper.apply(user)).thenReturn(userDTO);
 
@@ -70,12 +77,10 @@ class UserServiceTest {
         assertEquals(userDTO.id(), createdUser.id());
         assertEquals(userDTO.name(), createdUser.name());
         assertEquals(userDTO.email(), createdUser.email());
-        assertEquals(userDTO.departmentId(), createdUser.departmentId());
+        assertEquals(userDTO.departmentType(), createdUser.departmentType());
 
-        verify(departmentService, times(1)).departmentExists(departmentId);
+        verify(departmentService, times(1)).findByName(DepartmentsType.HR);
         verify(userRepository, times(1)).save(any(User.class));
-        verify(userDTOMapper, times(1)).apply(user);
-
     }
 
     @DisplayName("Should create a user with invalid departmentId")
@@ -92,16 +97,8 @@ class UserServiceTest {
                 departmentId
         );
 
-        UserDTO userDTO = new UserDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getDepartmentId()
-        );
-
-        when(departmentService.departmentExists(departmentId)).thenReturn(false);
-        assertThrows(NotFoundException.class,
-                () -> userService.createUser(userDTO));
+        assertThrows(IllegalArgumentException.class,
+                () -> departmentService.findByName(DepartmentsType.valueOf("ABC")));
 
     }
 
@@ -116,6 +113,5 @@ class UserServiceTest {
         assertThrows(NotFoundException.class, () -> userService.deleteUser(userId));
 
     }
-
-
+    
 }

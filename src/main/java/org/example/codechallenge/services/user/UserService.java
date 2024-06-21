@@ -2,6 +2,7 @@ package org.example.codechallenge.services.user;
 
 
 import org.example.codechallenge.exceptions.NotFoundException;
+import org.example.codechallenge.models.department.Department;
 import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.repositories.UserRepository;
@@ -35,22 +36,19 @@ public class UserService {
                 .map(userDTOMapper).collect(Collectors.toList());
     }
 
-    public Boolean validateDepartmentId(UUID departmentId) {
-        return departmentService.departmentExists(departmentId);
-    }
+
 
     public UserDTO createUser(UserDTO userDTO) {
 
-        if(!validateDepartmentId(userDTO.departmentId())) {
-            throw new NotFoundException("Department not found");
-        }
+        Department department = departmentService.findByName(userDTO.departmentType());
+
 
         User user = new User(
                 userDTO.name(),
                 userDTO.email(),
                 Timestamp.valueOf(LocalDateTime.now()),
                 null,
-                userDTO.departmentId()
+                department.getId()
         );
 
         User createdUser = userRepository.save(user);

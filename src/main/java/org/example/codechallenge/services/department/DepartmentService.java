@@ -1,5 +1,8 @@
 package org.example.codechallenge.services.department;
 
+import org.example.codechallenge.exceptions.NotFoundException;
+import org.example.codechallenge.models.department.Department;
+import org.example.codechallenge.models.department.DepartmentsType;
 import org.example.codechallenge.repositories.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,14 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public Boolean departmentExists(UUID departmentId) {
-        return departmentRepository.findById(departmentId).isPresent();
+
+
+    public Department findByName(DepartmentsType departmentType) {
+        return departmentRepository.findByName(departmentType).orElseThrow(() -> new NotFoundException("Department not found"));
+    }
+
+    public Department findDepartmentById(UUID departmentId) {
+        return departmentRepository.findById(departmentId).orElseThrow(() -> new NotFoundException("Department not found"));
     }
 }
 
