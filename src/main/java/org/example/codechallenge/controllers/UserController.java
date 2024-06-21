@@ -3,7 +3,7 @@ package org.example.codechallenge.controllers;
 
 import jakarta.validation.Valid;
 import org.example.codechallenge.models.user.UserDTO;
-import org.example.codechallenge.services.UserService;
+import org.example.codechallenge.services.user.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

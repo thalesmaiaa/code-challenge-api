@@ -24,12 +24,13 @@ public class User {
     @JoinColumn(name = "department_id")
     private UUID departmentId;
 
-    public User(UUID id, String name, String email, Timestamp createdAt, Timestamp updatedAt) {
+    public User(UUID id, String name, String email, Timestamp createdAt, Timestamp updatedAt, UUID departmentId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.departmentId = departmentId;
     }
 
     public UUID getDepartmentId() {

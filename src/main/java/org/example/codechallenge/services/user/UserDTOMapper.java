@@ -1,4 +1,4 @@
-package org.example.codechallenge.services;
+package org.example.codechallenge.services.user;
 
 import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
