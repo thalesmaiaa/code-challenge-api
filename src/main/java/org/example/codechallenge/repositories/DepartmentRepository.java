@@ -1,7 +1,6 @@
 package org.example.codechallenge.repositories;
 
 import org.example.codechallenge.models.department.Department;
-import org.example.codechallenge.models.department.DepartmentsType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

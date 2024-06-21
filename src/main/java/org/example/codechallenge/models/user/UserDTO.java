@@ -2,7 +2,6 @@ package org.example.codechallenge.models.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.example.codechallenge.models.department.DepartmentsType;
 
 import java.util.UUID;
 

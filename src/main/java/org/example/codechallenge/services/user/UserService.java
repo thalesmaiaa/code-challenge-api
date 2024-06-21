@@ -31,18 +31,14 @@ public class UserService {
         this.departmentService = departmentService;
     }
 
-
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream()
                 .map(userDTOMapper).collect(Collectors.toList());
     }
 
-
-
     public UserDTO createUser(UserDTO userDTO) {
 
         Department department = departmentService.findByName(DepartmentsType.valueOf(userDTO.departmentType()));
-
 
         User user = new User(
                 userDTO.name(),
