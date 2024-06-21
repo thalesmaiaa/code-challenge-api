@@ -8,5 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DepartmentRepository extends JpaRepository<Department, UUID> {
-    Optional<Department> findByName(DepartmentsType departmentType);
+
+    Optional<Department> findByName(String departmentType);
 }

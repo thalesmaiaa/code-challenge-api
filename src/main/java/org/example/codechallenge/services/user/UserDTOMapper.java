@@ -21,13 +21,13 @@ public class UserDTOMapper implements Function<User, UserDTO> {
     @Override
     public UserDTO apply(User user) {
 
-            Department department = departmentService.findDepartmentById(user.getDepartmentId());
+        Department department = departmentService.findDepartmentById(user.getDepartmentId());
 
         return new UserDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                DepartmentsType.valueOf(department.getName())
+                department.getName()
         );
     }
 }

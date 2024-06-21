@@ -3,6 +3,7 @@ package org.example.codechallenge.services.user;
 
 import org.example.codechallenge.exceptions.NotFoundException;
 import org.example.codechallenge.models.department.Department;
+import org.example.codechallenge.models.department.DepartmentsType;
 import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.repositories.UserRepository;
@@ -40,7 +41,7 @@ public class UserService {
 
     public UserDTO createUser(UserDTO userDTO) {
 
-        Department department = departmentService.findByName(userDTO.departmentType());
+        Department department = departmentService.findByName(DepartmentsType.valueOf(userDTO.departmentType()));
 
 
         User user = new User(

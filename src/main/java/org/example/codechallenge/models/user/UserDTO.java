@@ -10,11 +10,9 @@ public record UserDTO(
         UUID id,
         @NotBlank(message = "Name is required")
         String name,
-
         @NotBlank(message = "Email is required")
         @Email(message = "Invalid email")
         String email,
-
-        DepartmentsType departmentType
+        String departmentType
 ) {
 }

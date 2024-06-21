@@ -57,7 +57,7 @@ class UserServiceTest {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                DepartmentsType.HR
+                "HR"
         );
 
         Department department = new Department(

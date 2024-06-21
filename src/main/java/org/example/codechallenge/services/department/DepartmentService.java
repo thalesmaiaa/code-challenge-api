@@ -17,10 +17,8 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-
-
     public Department findByName(DepartmentsType departmentType) {
-        return departmentRepository.findByName(departmentType).orElseThrow(() -> new NotFoundException("Department not found"));
+        return departmentRepository.findByName(departmentType.toString()).orElseThrow(() -> new NotFoundException("Department not found"));
     }
 
     public Department findDepartmentById(UUID departmentId) {
