@@ -1,6 +1,7 @@
 package org.example.codechallenge.controllers;
 
 
+import jakarta.validation.Valid;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDTO createUser(@RequestBody UserDTO userDTO){
+    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO){
         return userService.createUser(userDTO);
     }
 
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable UUID id, @RequestBody UserDTO userDTO){
+    public UserDTO updateUser(@Valid @PathVariable UUID id, @RequestBody UserDTO userDTO){
         return userService.updateUser(id, userDTO);
     }
 
