@@ -5,11 +5,10 @@ import org.example.codechallenge.exceptions.NotFoundException;
 import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.repositories.UserRepository;
+import org.example.codechallenge.services.department.DepartmentService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +21,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserDTOMapper userDTOMapper, UserRepository userRepository) {
+    private final DepartmentService departmentService;
+
+    public UserService(UserDTOMapper userDTOMapper, UserRepository userRepository, DepartmentService departmentService) {
         this.userDTOMapper = userDTOMapper;
         this.userRepository = userRepository;
+        this.departmentService = departmentService;
     }
 
 
@@ -33,12 +35,22 @@ public class UserService {
                 .map(userDTOMapper).collect(Collectors.toList());
     }
 
+    public Boolean validateDepartmentId(UUID departmentId) {
+        return departmentService.departmentExists(departmentId);
+    }
+
     public UserDTO createUser(UserDTO userDTO) {
+
+        if(!validateDepartmentId(userDTO.departmentId())) {
+            throw new NotFoundException("Department not found");
+        }
+
         User user = new User(
                 userDTO.name(),
                 userDTO.email(),
                 Timestamp.valueOf(LocalDateTime.now()),
-                null
+                null,
+                userDTO.departmentId()
         );
 
         userRepository.save(user);

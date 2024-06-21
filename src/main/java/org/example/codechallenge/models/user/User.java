@@ -21,6 +21,9 @@ public class User {
 
     private Timestamp updatedAt;
 
+    @JoinColumn(name = "department_id")
+    private UUID departmentId;
+
     public User(UUID id, String name, String email, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.name = name;
@@ -29,11 +32,20 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public User(String name, String email, Timestamp createdAt, Timestamp updatedAt) {
+    public UUID getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(UUID departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public User(String name, String email, Timestamp createdAt, Timestamp updatedAt, UUID departmentId) {
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.departmentId = departmentId;
     }
 
     public User() {
