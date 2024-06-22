@@ -8,6 +8,8 @@ import org.example.codechallenge.models.user.User;
 import org.example.codechallenge.models.user.UserDTO;
 import org.example.codechallenge.repositories.UserRepository;
 import org.example.codechallenge.services.department.DepartmentService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -31,9 +33,9 @@ public class UserService {
         this.departmentService = departmentService;
     }
 
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream()
-                .map(userDTOMapper).collect(Collectors.toList());
+    public Page<UserDTO> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(userDTOMapper::apply);
     }
 
     public UserDTO createUser(UserDTO userDTO) {
