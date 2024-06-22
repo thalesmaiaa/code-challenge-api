@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS departments (
 
 INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'HR');
 INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'IT');
-INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'Finance');
-INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'Marketing');
+INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'FINANCE');
+INSERT INTO departments (id, "name") VALUES (gen_random_uuid(), 'MARKETING');
