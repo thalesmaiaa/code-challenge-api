@@ -57,13 +57,17 @@ class UserServiceTest {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                "HR"
+                "HR",
+                user.getCreatedAt(),
+                user.getUpdatedAt()
         );
 
         Department department = new Department(
                 departmentId,
                 "HR"
         );
+
+        when(departmentService.isDepartmentValid(String.valueOf(DepartmentsType.HR))).thenReturn(true);
 
         when(departmentService.findByName(DepartmentsType.HR)).thenReturn(department);
         when(userRepository.save(any(User.class))).thenReturn(user);
@@ -76,6 +80,7 @@ class UserServiceTest {
         assertEquals(userDTO.email(), createdUser.email());
         assertEquals(userDTO.departmentType(), createdUser.departmentType());
 
+        verify(departmentService, times(1)).isDepartmentValid(String.valueOf(DepartmentsType.HR));
         verify(departmentService, times(1)).findByName(DepartmentsType.HR);
         verify(userRepository, times(1)).save(any(User.class));
     }

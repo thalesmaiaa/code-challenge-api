@@ -26,7 +26,9 @@ public class UserDTOMapper implements Function<User, UserDTO> {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                department.getName()
+                department.getName(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
         );
     }
 }

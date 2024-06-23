@@ -3,6 +3,7 @@ package org.example.codechallenge.models.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public record UserDTO(
@@ -12,6 +13,7 @@ public record UserDTO(
         @NotBlank(message = "Email is required")
         @Email(message = "Invalid email")
         String email,
-        String departmentType
-) {
+        String departmentType,
+        Timestamp createdAt,
+        Timestamp updatedAt) {
 }
