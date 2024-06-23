@@ -1,6 +1,5 @@
 package org.example.codechallenge.services.user;
 
-
 import org.example.codechallenge.exceptions.NotFoundException;
 import org.example.codechallenge.models.department.Department;
 import org.example.codechallenge.models.department.DepartmentsType;
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -27,7 +24,8 @@ public class UserService {
 
     private final DepartmentService departmentService;
 
-    public UserService(UserDTOMapper userDTOMapper, UserRepository userRepository, DepartmentService departmentService) {
+    public UserService(UserDTOMapper userDTOMapper, UserRepository userRepository,
+            DepartmentService departmentService) {
         this.userDTOMapper = userDTOMapper;
         this.userRepository = userRepository;
         this.departmentService = departmentService;
@@ -39,6 +37,9 @@ public class UserService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
+        if (!departmentService.isDepartmentValid(userDTO.departmentType())) {
+            throw new NotFoundException("Department not found");
+        }
 
         Department department = departmentService.findByName(DepartmentsType.valueOf(userDTO.departmentType()));
 
@@ -47,8 +48,7 @@ public class UserService {
                 userDTO.email(),
                 Timestamp.valueOf(LocalDateTime.now()),
                 null,
-                department.getId()
-        );
+                department.getId());
 
         User createdUser = userRepository.save(user);
         return userDTOMapper.apply(createdUser);

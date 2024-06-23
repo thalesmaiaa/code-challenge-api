@@ -17,6 +17,13 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
+    public Boolean isDepartmentValid(String departmentName){
+        for (DepartmentsType type : DepartmentsType.values()) {
+            return type.name().equalsIgnoreCase(departmentName);
+        }
+        return false;
+    }
+
     public Department findByName(DepartmentsType departmentType) {
         return departmentRepository.findByName(departmentType.toString()).orElseThrow(() -> new NotFoundException("Department not found"));
     }
