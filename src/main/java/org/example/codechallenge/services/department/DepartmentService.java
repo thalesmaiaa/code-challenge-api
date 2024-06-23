@@ -18,8 +18,11 @@ public class DepartmentService {
     }
 
     public Boolean isDepartmentValid(String departmentName){
+
         for (DepartmentsType type : DepartmentsType.values()) {
-            return type.name().equalsIgnoreCase(departmentName);
+            if(type.name().equalsIgnoreCase(departmentName)){
+                return true;
+            }
         }
         return false;
     }
