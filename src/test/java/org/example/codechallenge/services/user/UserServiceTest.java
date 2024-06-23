@@ -28,21 +28,20 @@ import java.util.UUID;
 class UserServiceTest {
 
     @InjectMocks
-    private  UserService userService;
+    private UserService userService;
 
     @Mock
-    private  UserDTOMapper userDTOMapper;
+    private UserDTOMapper userDTOMapper;
 
     @Mock
-    private  UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Mock
-    private  DepartmentService departmentService;
-
+    private DepartmentService departmentService;
 
     @DisplayName("Should create a user")
     @Test
-    void createUser() {
+    void createUser(){
         UUID departmentId = UUID.randomUUID();
         User user = new User(
                 UUID.randomUUID(),
@@ -68,7 +67,6 @@ class UserServiceTest {
         );
 
         when(departmentService.isDepartmentValid(String.valueOf(DepartmentsType.HR))).thenReturn(true);
-
         when(departmentService.findByName(DepartmentsType.HR)).thenReturn(department);
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(userDTOMapper.apply(user)).thenReturn(userDTO);
@@ -87,12 +85,12 @@ class UserServiceTest {
 
     @DisplayName("Should create a user with invalid departmentId")
     @Test
-    void testCreateInvalidUser() {
+    void testCreateInvalidUser(){
 
         assertThrows(IllegalArgumentException.class,
                 () -> departmentService.findByName(DepartmentsType.valueOf("ABC")));
 
-        }
+    }
 
     @DisplayName("Search for invalid users")
     @Test
