@@ -1,3 +1,8 @@
+CREATE TABLE IF NOT EXISTS departments (
+   id UUID PRIMARY KEY,
+   "name" VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
@@ -5,4 +10,4 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     department_id UUID REFERENCES departments(id) ON DELETE CASCADE
-    );
+);
